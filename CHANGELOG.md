@@ -9,7 +9,7 @@ this project adheres to semantic versioning.
 MVP release.
 
 ### Added
-- Vite + React SPA scaffold, deployable to Vercel under `/eras/`.
+- Vite + React SPA scaffold, deployable to Vercel under `/intervertebra/`.
 - IndexedDB persistence layer (`patients`, `items`, `procedures`, `meta`)
   via the `idb` library.
 - Seed data: 22-item ERAS bundle for lumbar fusion (ERAS Society consensus,

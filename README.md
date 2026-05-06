@@ -8,7 +8,7 @@ a proof-of-concept research/audit tool.
 - Local-only — data lives in the browser via IndexedDB. No backend, no auth.
 - Mobile-first — usable at the bedside on a phone, also fine on a desktop.
 - Installable PWA, offline-capable.
-- Deployed at <https://geneleung.org/eras/> (Vercel, base path `/eras/`).
+- Deployed at <https://geneleung.org/intervertebra/> (Vercel, base path `/intervertebra/`).
 
 > **Not a clinical decision support system.** This is an audit/research tool.
 > Do not enter any patient-identifiable information. Use a de-identified
@@ -30,7 +30,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:5173/eras/> in a browser.
+Open <http://localhost:5173/intervertebra/> in a browser.
 
 To build:
 
@@ -41,21 +41,29 @@ npm run preview
 
 ## Deploying to Vercel
 
-The app is configured with `base: '/eras/'` in `vite.config.js`, so the
-production bundle expects to be served from `…/eras/`.
+The app is configured with `base: '/intervertebra/'` in `vite.config.js`,
+so the production bundle expects to be served from `…/intervertebra/`. This
+matches how the geneleung.org portfolio mounts sub-apps: each one is its own
+Vercel project, and the umbrella site (`drgeneleung`) adds a rewrite.
 
-For deployment under `geneleung.org/eras/`, either:
+1. **Standalone Vercel project** — connect this repo to Vercel. The default
+   build (`npm run build`, output `dist/`) is correct.
 
-1. **Standalone Vercel project** — set `Output Directory` to `dist`. Configure
-   a rewrite so all sub-paths fall back to `index.html` (Vercel does this for
-   `vite` projects automatically). Then mount at `/eras/` via your
-   primary site's rewrites.
+2. **Mount under geneleung.org** — add to the umbrella `drgeneleung/vercel.json`:
 
-2. **As a sub-app of the portfolio** — `vercel.json` in the umbrella project
-   should rewrite `/eras/(.*)` to the deployed Vite output.
+   ```json
+   {
+     "source": "/intervertebra/:path*",
+     "destination": "https://intervertebra.vercel.app/intervertebra/:path*"
+   }
+   ```
 
-Either way, the `basename` in `BrowserRouter` (`/eras`) and Vite's `base`
-must match.
+   The destination keeps the `/intervertebra/` prefix because the deployed
+   bundle's asset URLs include it. Add a separate rule for the no-trailing-slash
+   case if you want `geneleung.org/intervertebra` (no slash) to also resolve.
+
+The `basename` in `BrowserRouter` (`/intervertebra`) and Vite's `base` must
+stay in sync.
 
 ## Data model
 

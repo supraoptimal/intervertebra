@@ -2,9 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// Deployed at geneleung.org/eras/
+// Deployed at geneleung.org/intervertebra/
 export default defineConfig({
-  base: '/eras/',
+  base: '/intervertebra/',
   plugins: [
     react(),
     VitePWA({
@@ -18,8 +18,8 @@ export default defineConfig({
         theme_color: '#0f172a',
         background_color: '#ffffff',
         display: 'standalone',
-        scope: '/eras/',
-        start_url: '/eras/',
+        scope: '/intervertebra/',
+        start_url: '/intervertebra/',
         icons: [
           {
             src: 'icon-192.png',
