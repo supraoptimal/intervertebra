@@ -5,6 +5,14 @@ import { VitePWA } from 'vite-plugin-pwa';
 // Deployed at geneleung.org/intervertebra/
 export default defineConfig({
   base: '/intervertebra/',
+  // Output into dist/intervertebra so the on-disk path mirrors the public URL
+  // path. This is required because Vite emits asset references like
+  // /intervertebra/assets/... and the deployed Vercel app needs to serve
+  // those at the same path on its own domain (intervertebra.vercel.app).
+  build: {
+    outDir: 'dist/intervertebra',
+    emptyOutDir: true,
+  },
   plugins: [
     react(),
     VitePWA({
